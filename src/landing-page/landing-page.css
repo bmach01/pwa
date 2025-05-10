@@ -1,6 +1,7 @@
 main {
     width: 50vh;
     margin: auto;
+    padding: 5%;
     font-family: Helvetica;
     display: flex;
     justify-content: center;
@@ -17,12 +18,13 @@ main h1 {
 
 main p {
     color: #7186a6;
-    width: 75%;
-    margin: 10%;
+    width: 60%;
+    margin: 5%;
 }
 
 main button {
     font-size: large;
     width: 40%;
     height: 3rem;
+    margin: 10%;
 }

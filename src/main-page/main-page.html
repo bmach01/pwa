@@ -3,16 +3,23 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>200.NEKO</title>
+        <title>funny.com</title>
         <link rel="stylesheet" href="main-page.css">
         <link rel="manifest" href="/../../manifest.json">
     </head>
     <body>
         <main>
-            <h2>Enter your code:</h2>
-            <form>
-                <input type="text">
-            </form>
+            <h1>Search by phrase:</h1>
+
+            <div class="form-container">
+                <form id="joke-searcher">
+                    <input type="text" id="term-input" placeholder="Cat">
+                    <input type="submit" onclick="getMyJoke()">
+                </form>
+            </div>
+
+            <h2 id="output"></h2>
         </main>
     </body>
+    <script src="main-page-script.js"></script>
 </html>
