@@ -1,0 +1,39 @@
+{
+
+    "name": "Zadanie 4",
+
+    "short_name": "PWA4",
+
+    "start_url": "/landing-page/landing-page.html",
+
+    "display": "standalone",
+
+    "background_color": "#fff",
+
+    "theme_color": "#007bff",
+
+    "icons": [
+
+        {
+
+            "src": "/assets/icon512.png",
+
+            "sizes": "512x512",
+
+            "type": "image/png"
+
+        },
+
+        {
+
+            "src": "/assets/icon192.png",
+
+            "sizes": "192x192",
+
+            "type": "image/png"
+
+        }
+
+    ]
+
+}
