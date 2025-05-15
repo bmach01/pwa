@@ -28,6 +28,7 @@ const getMyJoke = async () => {
         if (!set.has(joke.id)) {
             presentJoke(joke.joke);
             set.add(joke.id);
+            addJoke(joke);
             return;
         }
     }
