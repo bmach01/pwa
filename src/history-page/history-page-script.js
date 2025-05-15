@@ -8,11 +8,9 @@ const goToMainPage = () => {
 }
 
 const loadAllJokes = async () => {
-    console.log("loading all jokes..");
     try {
         await dbReady;
         const jokes = await getAllJokes();
-        console.log("loaded all jokes!", jokes);
         
         if (jokes.length <= 0) {
             console.log("No jokes found");
@@ -27,7 +25,7 @@ const loadAllJokes = async () => {
 }
 
 const getItemColor = () => {
-    itemColorIndex = (itemColorIndex + 1) % itemColors.length;  // Fixed .length
+    itemColorIndex = (itemColorIndex + 1) % itemColors.length;
     return itemColors[itemColorIndex];
 }
 
@@ -50,4 +48,4 @@ const formatJoke = (jokeRecord) => {
     
     return `<li>${dateText}<span style="color: ${color}">${jokeRecord.joke}</span></li>`;
 };
-document.addEventListener('DOMContentLoaded', loadAllJokes);
+document.addEventListener("DOMContentLoaded", loadAllJokes);

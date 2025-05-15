@@ -1,59 +1,71 @@
-document.getElementById("joke-searcher").addEventListener('submit', (e) => {
+document.getElementById("joke-searcher").addEventListener("submit", (e) => {
     e.preventDefault();
 });
 
-const set = new Set();
-let lastSearchTerm = null;
-let cachedFetch = null;
 const container = document.getElementById("output");
 
 const getMyJoke = async () => {
     const searchTerm = document.getElementById("term-input").value;
-    let data = null;
 
-    if (lastSearchTerm === searchTerm) {
-        data = cachedFetch;
+    let searchTermRecord = await getSearchTermRecord(searchTerm);
+    if (searchTermRecord === undefined)
+        searchTermRecord = { term: searchTerm, page: 1 };
+    console.log(searchTermRecord);
+
+    try {
+        data = await fetchJokes(searchTerm, searchTermRecord.page);
     }
-    else {
-        try {
-            data = await fetchJokes(searchTerm);
-            cachedFetch = data;
-        }
-        catch (error) {
-            presentError(error);
-        }
+    catch (error) {
+        presentError(error);
+        return;
     }
 
     for (const joke of data.results) {
-        if (!set.has(joke.id)) {
-            presentJoke(joke.joke);
-            set.add(joke.id);
+        const savedJoke = await getJokeById(joke.id);
+        if (!savedJoke) {
+            if (searchTerm)
+                underlineSearchTerm(joke, searchTerm);
             addJoke(joke);
+            presentJoke(joke.joke);
             return;
         }
     }
-    presentWarn("Run out of jokes with this phrase!")
+    if (data.current_page < data.next_page) {
+        ++searchTermRecord.page
+        await updateSearchTerm(searchTermRecord);
+        getMyJoke();
+        return;
+    }
+
+    presentWarn("Run out of jokes with this phrase!");
 }
 
-const fetchJokes = async (searchTerm) => {
-    const response = await fetch(`https://icanhazdadjoke.com/search?term=${searchTerm}`, {
+const fetchJokes = async (searchTerm, page) => {
+    const response = await fetch(`https://icanhazdadjoke.com/search?term=${searchTerm}&page=${page}`, {
         headers: {
-        'Accept': 'application/json',
+            "Accept": "application/json",
         },
     });
 
+    const data = await response.json();
+
     if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response}`);
+        throw new Error(`HTTP error! ${await data.message}`);
     }
-    return response.json();
+    return data;
+}
+
+const underlineSearchTerm = (joke, searchTerm) => {
+    joke.joke = joke.joke.replace(searchTerm, `<u>${searchTerm}</u>`);
 }
 
 const presentJoke = (joke) => {
-    container.innerText = joke;
+    container.innerHTML = joke;
     container.style.color = "green";
 }
 
 const presentError = (error) => {
+    console.log(JSON.stringify(error));
     container.innerText = error;
     container.style.color = "red";
 }
