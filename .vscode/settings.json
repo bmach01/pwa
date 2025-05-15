@@ -1,9 +1,0 @@
-{
-    "liveServer.settings.root": "/",
-    "liveServer.settings.https": {
-      "enable": true,
-      "cert": "C:\\Users\\Bartosz\\Desktop\\pwa\\certificate\\localhost.pem",
-      "key": "C:\\Users\\Bartosz\\Desktop\\pwa\\certificate\\localhost.key",
-      "passphrase": "1234567890"
-    }
-  }
