@@ -4,22 +4,26 @@ const DB_NAME = 'jokes';
 const DB_VERSION = 1;
 const STORE_NAME = 'jokes';
 
-const request = indexedDB.open(DB_NAME, DB_VERSION);
+const dbReady = new Promise((resolve, reject) => {
+  const request = indexedDB.open(DB_NAME, DB_VERSION);
 
-request.onerror = (error) => {
-  console.error('IndexedDB error:', error);
-}
+  request.onerror = (error) => {
+    console.error('IndexedDB error:', error);
+    reject(error);
+  };
 
-request.onupgradeneeded = (event) => {
-  db = event.target.result;
-  if (!db.objectStoreNames.contains(STORE_NAME)) {
-    db.createObjectStore(STORE_NAME, { keyPath: "id" });
-  }
-}
+  request.onupgradeneeded = (event) => {
+    db = event.target.result;
+    if (!db.objectStoreNames.contains(STORE_NAME)) {
+      db.createObjectStore(STORE_NAME, { keyPath: "id" });
+    }
+  };
 
-request.onsuccess = (event) => {
-  db = event.target.result;
-}
+  request.onsuccess = (event) => {
+    db = event.target.result;
+    resolve(db);
+  };
+});
 
 const addJoke = async (joke) => {
     return new Promise((resolve, reject) => {

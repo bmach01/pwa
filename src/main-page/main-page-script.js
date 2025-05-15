@@ -62,3 +62,7 @@ const presentWarn = (warn) => {
     container.innerText = warn;
     container.style.color = "orange";
 }
+
+const goToHistoryPage = () => {
+    window.location.href = "/history-page/history-page.html";
+}

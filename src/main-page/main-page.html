@@ -13,13 +13,16 @@
             <div class="form-container">
                 <form id="joke-searcher">
                     <input type="text" id="term-input" placeholder="Cat">
-                    <input type="submit" onclick="getMyJoke()">
+                    <div>
+                        <input type="submit" onclick="getMyJoke()" value="Fetch a joke!">
+                        <button onClick="goToHistoryPage()">History</button>
+                    </div>
                 </form>
             </div>
 
             <h2 id="output"></h2>
         </main>
-    <script src="db-script.js"></script>
+    <script src="../common/db-script.js"></script>
     <script src="main-page-script.js"></script>
     </body>
 </html>
