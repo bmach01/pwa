@@ -3,6 +3,7 @@ document.getElementById("joke-searcher").addEventListener("submit", (e) => {
 });
 
 const container = document.getElementById("output");
+const searchButton = document.getElementById("search-button");
 
 const getMyJoke = async () => {
     const searchTerm = document.getElementById("term-input").value;
@@ -78,3 +79,19 @@ const presentWarn = (warn) => {
 const goToHistoryPage = () => {
     window.location.href = "/history-page/history-page.html";
 }
+
+const updateButtonState = () => {
+    if (navigator.onLine) {
+        searchButton.disabled = false;
+    } else {
+        searchButton.disabled = true;
+    }
+}
+
+updateButtonState();
+
+window.addEventListener('online', updateButtonState);
+window.addEventListener('offline', updateButtonState)
+
+window.addEventListener('online', () => console.log('Became online'));
+window.addEventListener('offline', () => console.log('Became offline'));
