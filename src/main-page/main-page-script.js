@@ -92,6 +92,3 @@ updateButtonState();
 
 window.addEventListener('online', updateButtonState);
 window.addEventListener('offline', updateButtonState)
-
-window.addEventListener('online', () => console.log('Became online'));
-window.addEventListener('offline', () => console.log('Became offline'));
